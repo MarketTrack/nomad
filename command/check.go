@@ -47,6 +47,18 @@ func (c *AgentCheckCommand) Synopsis() string {
 	return "Displays health of the local Nomad agent"
 }
 
+func (c *AgentCheckCommand) AutocompleteFlags() complete.Flags {
+	return mergeAutocompleteFlags(c.Meta.AutocompleteFlags(FlagSetClient),
+		complete.Flags{
+			"-min-peers":   complete.PredictNothing,
+			"-min-servers": complete.PredictNothing,
+		})
+}
+
+func (c *AgentCheckCommand) AutocompleteArgs() complete.Predictor {
+	return complete.PredictNothing
+}
+
 func (c *AgentCheckCommand) Name() string { return "check" }
 
 func (c *AgentCheckCommand) Run(args []string) int {
